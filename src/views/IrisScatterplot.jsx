@@ -14,7 +14,7 @@ const height = 500;
 const margin = {
     top: 20,
     right: 20,
-    left: 195,
+    left: 120,
     bottom: 60
 };
 // const centerX=width / 2;
@@ -32,27 +32,28 @@ const IrisScatterplot = () => {
 
         const innerWidth = width - margin.left - margin.right;
 
-    
-    const yValue = d => d.sepal_length;
-    const yLabel = "Sepal Length"
-    const xValue = d => d.sepal_width;
-    const xLabel = "Sepal Width";
-    console.log("sepal length: " + xValue)
 
+    const yValue = d => d.petal_length;
+    const yLabel = "Petal Length"
+    const xValue = d => d.sepal_length;
+    const xLabel = "Sepal Length";
+    const tooltipValue = d => d.species;
 
+    const yAxisLabelOffset = -50;
     const xAxisLabelOffset = 45;
-    const tooltipFormat = format(',.0f');
     const siFormat = format('.2s');
     const xAxisTickFormat = tickValue => siFormat(tickValue).replace('G', 'B');
     
     const xScale = scaleLinear()
     .domain(extent(data, xValue)) 
-    .range([0, innerWidth]);
+    .range([0, innerWidth])
+    .nice();
 
     // scatterplots are linear scales 
     const yScale = scaleLinear()
     .domain(extent(data, yValue))
-    .range([0, innerHeight]);
+    .range([innerHeight, 0])
+    .nice();
 
     return (
         <>
@@ -61,21 +62,28 @@ const IrisScatterplot = () => {
                 
                 <AxisX xScale={xScale} innerHeight={innerHeight} tickFormat={xAxisTickFormat}/>
                 <AxisY yScale={yScale} innerWidth={innerWidth}/>
-                    {/* COUNT NAMES USING Y SCALE. TICKS DO NOT APPLY TO THE BANDWIDTH SO YOU USE DOMAIN INSTEAD */}
                 <Marks 
                 data={data} 
                 yScale={yScale} 
                 xScale={xScale}
                 xValue={xValue}
                 yValue={yValue}
-                tooltipFormat={tooltipFormat}
+                tooltipValue={tooltipValue}
                 />
-                        <text 
+                {/* X axis label  */}
+                    <text 
                         className="axisLabel"
                         x={innerWidth / 2} 
                         textAnchor="middle"  
                         y={innerHeight + xAxisLabelOffset}>
                             {xLabel}
+                    </text>
+                                    {/* Y axis label  */}
+                    <text 
+                        className="axisLabel"
+                        textAnchor="middle"
+                        transform={`translate(${yAxisLabelOffset},${innerHeight / 2}) rotate(-90)`}>
+                            {yLabel}
                     </text>
             </g>
         </svg>

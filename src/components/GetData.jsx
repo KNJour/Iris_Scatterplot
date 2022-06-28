@@ -9,6 +9,7 @@ export const GetData = (irisUrl) => {
             d.sepal_width = +d.sepal_width;
             d.petal_length = +d.petal_length;
             d.petal_width = +d.petal_width;
+            d.species = d.species;
             return d;
         };
         csv(irisUrl, row).then(setData);

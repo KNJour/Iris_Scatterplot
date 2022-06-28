@@ -5,7 +5,7 @@ export const AxisX = ({xScale, innerHeight, tickFormat}) =>
         <line 
             y2={innerHeight} 
             />
-        <text y={innerHeight + 7} dy=".71em" style={{textAnchor: 'middle'}}>{tickFormat(tickValue)}</text>
+        <text y={innerHeight + 5} dy=".71em" style={{textAnchor: 'middle'}}>{tickFormat(tickValue)}</text>
         </g>
     ))
 
