@@ -1,0 +1,26 @@
+pre {
+    font-size: 1.5rem;
+}
+body {
+    font-family: 'Sen', sans-serif;
+    font-weight: bold;
+}
+.tick line{
+    stroke: #C0C0BB
+}
+
+.tick text {
+    fill: #0f448a;
+}
+/* .colorDiv {
+    width: 100px;
+    height: 100px;
+} */
+
+.mark {
+    fill: #d37a31;
+}
+
+.axisLabel {
+    font-size:2.2em;
+}
