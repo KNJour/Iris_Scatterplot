@@ -32,13 +32,14 @@ const IrisScatterplot = () => {
 
         const innerWidth = width - margin.left - margin.right;
 
-
+        // LABELS AND DATA
     const yValue = d => d.petal_length;
     const yLabel = "Petal Length"
     const xValue = d => d.sepal_length;
     const xLabel = "Sepal Length";
-    const tooltipValue = d => d.species;
 
+    const circleRadius = 8;
+    const tooltipValue = d => d.species;
     const yAxisLabelOffset = -50;
     const xAxisLabelOffset = 45;
     const siFormat = format('.2s');
@@ -69,6 +70,7 @@ const IrisScatterplot = () => {
                 xValue={xValue}
                 yValue={yValue}
                 tooltipValue={tooltipValue}
+                circleRadius={circleRadius}
                 />
                 {/* X axis label  */}
                     <text 
