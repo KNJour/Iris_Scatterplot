@@ -17,6 +17,13 @@ body {
     height: 100px;
 } */
 
+option, select, .selectionLabel {
+    font-size: 2em;
+}
+
+.selectionLabel {
+    margin: 10px 10px 10px 30px;
+}
 .mark {
     fill: #d37a31;
 }

@@ -2,22 +2,20 @@ export const Dropdown = ({options, id, handleSelection, selectedValues}) => {
     return(
 <div className="selection">
     {/* X Axis */}
-    <label for="xAxisSelect">X Axis: </label>
+    <label className="selectionLabel" for="xAxisSelect">X Axis: </label>
    <select id="xAxisSelect" type="text" name="xAxis" onChange={handleSelection} value={selectedValues.xAxis}>
         {options.map(option => (
-            <option value={option.value} name={option.value}>{option.label}</option>
+            <option value={option.value} selected={option.value === selectedValues.xAxis}name={option.value}>{option.label}</option>
         ))}
     </select> 
     <br></br>
     {/* Y AXIS */}
-    <label for="xAxisSelect">X Axis: </label>
-   <select id={id} type="text" name="yAxis" onChange={handleSelection} value={selectedValues.yAxis}>
+    <label className="selectionLabel" for="yAxisSelect">Y Axis: </label>
+   <select id="yAxisSelect" type="text" name="yAxis" onChange={handleSelection} value={selectedValues.yAxis}>
         {options.map(option => (
-            <option value={option.value} name={option.value}>{option.label}</option>
+            <option value={option.value} selected={option.value === selectedValues.yAxis} name={option.value}>{option.label}</option>
         ))}
     </select> 
-    <h2>{`the current value for X is: ${selectedValues.xAxis}`}</h2>
-    <h2>{`the current value for Y is: ${selectedValues.yAxis}`}</h2>
 
 </div>
 
