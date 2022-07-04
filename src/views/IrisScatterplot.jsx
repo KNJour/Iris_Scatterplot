@@ -175,6 +175,7 @@ const IrisScatterplot = () => {
                             spacing={20}
                             size={circleRadius}
                             xOffset={20}
+                            hoveredSpecies={hoveredSpecies}
                             setHoveredSpecies={setHoveredSpecies}/>
                     </g>
                     

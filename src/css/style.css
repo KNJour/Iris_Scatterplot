@@ -12,6 +12,7 @@ body {
 
 .tick text {
     fill: #0f448a;
+    cursor: default;
 }
 /* .colorDiv {
     width: 100px;
@@ -50,4 +51,8 @@ option, select, .selectionLabel {
 
 .greyMe {
     fill: #5a5959;
+}
+
+.legendItemMapped {
+    cursor:pointer;
 }

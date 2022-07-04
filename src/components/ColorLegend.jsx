@@ -1,12 +1,13 @@
 import { domain } from 'd3';
 
-export const ColorLegend = ({speciesScale, spacing, size, xOffset, setHoveredSpecies}) => 
+export const ColorLegend = ({speciesScale, spacing, size, xOffset, setHoveredSpecies, hoveredSpecies}) => 
 
 speciesScale.domain().map((species, i) => (
         <g className="legendItemMapped"
+           opacity={hoveredSpecies && species !== hoveredSpecies ? .3 : 1}
            transform={`translate(20, ${i * spacing})`}
            onMouseEnter={() => { setHoveredSpecies(species); }}
-            onMouseLeave={() => { setHoveredSpecies(null)}}>
+           onMouseLeave={() => { setHoveredSpecies(null)}}>
             <text 
                 className={`greyMe ${species}`}
                 x={xOffset}
