@@ -9,6 +9,7 @@ body {
     stroke: #C0C0BB
 }
 
+
 .tick text {
     fill: #0f448a;
 }
@@ -45,4 +46,8 @@ option, select, .selectionLabel {
 }
 .setosa {
     color: #ff8916;
+}
+
+.greyMe {
+    fill: #5a5959;
 }

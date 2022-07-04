@@ -5,16 +5,17 @@ import { GetData } from '../components/GetData';
 import { AxisX, AxisY } from '../components/AxisXY';
 import { Marks } from '../components/Marks';
 import { Dropdown } from '../components/Dropdown';
+import {ColorLegend } from '../components/ColorLegend';
 
 const irisUrl = 'https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/0e7a9b0a5d22642a06d3d5b9bcbad9890c8ee534/iris.csv';
 
 
 const width = 960;
-const height = 500;
+const height = 550;
 const margin = {
-    top: 20,
-    right: 20,
-    left: 120,
+    top: 50,
+    right: 150,
+    left: 150,
     bottom: 60
 };
 
@@ -70,6 +71,7 @@ const IrisScatterplot = () => {
     
     const xLabel = findLabel(selectedValues.xAxis);
     const yLabel = findLabel(selectedValues.yAxis);
+    const legendLabel = "Species";
 
     const yValue = d => d[selectedValues.yAxis];
     const xValue = d => d[selectedValues.xAxis];
@@ -125,7 +127,7 @@ const IrisScatterplot = () => {
                 />
                 {/* X axis label  */}
                     <text 
-                        className="axisLabel"
+                        className="axisLabel greyMe"
                         x={innerWidth / 2} 
                         textAnchor="middle"  
                         y={innerHeight + xAxisLabelOffset}>
@@ -133,23 +135,39 @@ const IrisScatterplot = () => {
                     </text>
                                     {/* Y axis label  */}
                     <text 
-                        className="axisLabel"
+                        className="axisLabel greyMe"
                         textAnchor="middle"
                         transform={`translate(${yAxisLabelOffset},${innerHeight / 2}) rotate(-90)`}>
                             {yLabel}
                     </text>
+                    <g transform={`translate(${innerWidth + 35}, 50)`}>
+                    <text 
+                        className="axisLabel greyMe"
+                        textAnchor="middle" 
+                        x={50}
+                        y={-20}
+                        >
+                            {legendLabel}
+                    </text>
+                        <ColorLegend 
+                            speciesScale={speciesScale}
+                            spacing={20}
+                            size={circleRadius}
+                            xOffset={20}/>
+                    </g>
+                    
             </g>
+            
         </svg>
              </div>
-             <div className="row text-center justify-content-center">
+             {/* <div className="row text-center justify-content-center">
                     <h3>Legend</h3>
              </div>
              <div className="row text-center justify-content-center">
                     <h3 className="legendItem setosa">Setosa</h3> 
                     <h3 className="legendItem versicolor">Versicolor</h3> 
                     <h3 className="legendItem virginica">Virginica</h3> 
-             </div>
-
+             </div> */}
          </div>
         
          
