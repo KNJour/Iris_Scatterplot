@@ -19,15 +19,30 @@ body {
 
 option, select, .selectionLabel {
     font-size: 2em;
+    border-radius: 10px;
 }
 
 .selectionLabel {
     margin: 10px 10px 10px 30px;
 }
 .mark {
-    fill: #d37a31;
+    /* fill: #d37a31; */
+    opacity: 80%;
 }
 
 .axisLabel {
     font-size:2.2em;
+}
+.legendItem {
+    margin: 5px;
+    font-weight:bold;
+}
+.virginica {
+    color: #1bb403;
+}
+.versicolor {
+    color: #7e3ff2;
+}
+.setosa {
+    color: #ff8916;
 }

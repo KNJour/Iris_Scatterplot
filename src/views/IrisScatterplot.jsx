@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import{ scaleLinear, format, extent }from 'd3';
+import{ scaleLinear, format, extent, scaleOrdinal }from 'd3';
 import { GetData } from '../components/GetData';
 import { AxisX, AxisY } from '../components/AxisXY';
 import { Marks } from '../components/Marks';
@@ -67,14 +67,9 @@ const IrisScatterplot = () => {
         const innerWidth = width - margin.left - margin.right;
 
         // LABELS AND DATA
-    // const petal_length = d => +d.petal_length;
-    // const petal_width = d => +d.petal_width;
-    // const sepal_length = d => +d.sepal_length;
-    // const sepal_width = d => +sepal_width;
     
     const xLabel = findLabel(selectedValues.xAxis);
     const yLabel = findLabel(selectedValues.yAxis);
-
 
     const yValue = d => d[selectedValues.yAxis];
     const xValue = d => d[selectedValues.xAxis];
@@ -87,6 +82,13 @@ const IrisScatterplot = () => {
 
     const xAxisTickFormat = tickValue => siFormat(tickValue).replace('G', 'B');
     
+    // SCALES
+
+    //color scales are ordinal, domain can take in map of values in array, it accepts duplicates. the range is an array of colors
+    const speciesScale = scaleOrdinal()
+    .domain(data.map(tooltipValue))
+    .range(['#ff8916', '#7e3ff2', '#1bb403'])
+
     const xScale = scaleLinear()
     .domain(extent(data, xValue)) 
     .range([0, innerWidth])
@@ -100,9 +102,13 @@ const IrisScatterplot = () => {
 
     return (
         <>
-        <Dropdown id="plant" options={dataOptions} handleSelection={handleSelection} selectedValues={selectedValues}/>
-         {console.log("is it working? " + selectedValues.xAxis)}
-        <svg width={width} height={height}>
+        <div className="container-fluid d-flex bg-dark text-light">
+         <Dropdown id="plant" options={dataOptions} handleSelection={handleSelection} selectedValues={selectedValues}/>
+
+        </div>
+         <div className="container mt-4">
+             <div className="row">
+             <svg width={width} height={height}>
             <g transform={`translate(${margin.left}, ${margin.top})`}>
                 
                 <AxisX xScale={xScale} innerHeight={innerHeight} tickFormat={xAxisTickFormat}/>
@@ -110,6 +116,7 @@ const IrisScatterplot = () => {
                 <Marks 
                 data={data} 
                 yScale={yScale} 
+                speciesScale={speciesScale}
                 xScale={xScale}
                 xValue={xValue}
                 yValue={yValue}
@@ -133,6 +140,17 @@ const IrisScatterplot = () => {
                     </text>
             </g>
         </svg>
+             </div>
+             <div className="row text-center justify-content-center">
+                    <h3>Legend</h3>
+             </div>
+             <div className="row text-center justify-content-center">
+                    <h3 className="legendItem setosa">Setosa</h3> 
+                    <h3 className="legendItem versicolor">Versicolor</h3> 
+                    <h3 className="legendItem virginica">Virginica</h3> 
+             </div>
+
+         </div>
         
          
         </>
