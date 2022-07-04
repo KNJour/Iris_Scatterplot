@@ -31,11 +31,12 @@ const IrisScatterplot = () => {
         { value: 'petal_width', label: "Petal Width"  }
     ];
     
-    
+    const hoverEffect = (value) => {
+        console.log(value);
+    }
     const findLabel = (axisSelection) => {
         for (let i=0;i< dataOptions.length;i++) {
             if(dataOptions[i].value === axisSelection) {
-                console.log(dataOptions[i].value + dataOptions[i].label)
                 return dataOptions[i].label;
             }
         }
@@ -53,19 +54,23 @@ const IrisScatterplot = () => {
     const initialX = 'petal_length';
     const initialY = 'sepal_length';
 
+    // States
     const [selectedValues, setSelectedValues] = useState({
         xAxis: initialX,
         yAxis: initialY
     });
 
+    const [hoveredSpecies, setHoveredSpecies] = useState(null)
+
+    console.log("hovered value" + hoveredSpecies )
 
     if(!data) {
         return <pre>Loading</pre>
     } else {
 
-        const innerHeight = height - margin.top - margin.bottom;
+    const innerHeight = height - margin.top - margin.bottom;
 
-        const innerWidth = width - margin.left - margin.right;
+    const innerWidth = width - margin.left - margin.right;
 
         // LABELS AND DATA
     
@@ -81,6 +86,9 @@ const IrisScatterplot = () => {
     const yAxisLabelOffset = -50;
     const xAxisLabelOffset = 45;
     const siFormat = format('.2s');
+
+    const filteredData = data.filter( d => hoveredSpecies === tooltipValue(d));
+
 
     const xAxisTickFormat = tickValue => siFormat(tickValue).replace('G', 'B');
     
@@ -115,16 +123,29 @@ const IrisScatterplot = () => {
                 
                 <AxisX xScale={xScale} innerHeight={innerHeight} tickFormat={xAxisTickFormat}/>
                 <AxisY yScale={yScale} innerWidth={innerWidth}/>
-                <Marks 
-                data={data} 
-                yScale={yScale} 
-                speciesScale={speciesScale}
-                xScale={xScale}
-                xValue={xValue}
-                yValue={yValue}
-                tooltipValue={tooltipValue}
-                circleRadius={circleRadius}
-                />
+                <g opacity={hoveredSpecies ? .3 : 1}>
+                    <Marks 
+                    data={data} 
+                    yScale={yScale} 
+                    speciesScale={speciesScale}
+                    xScale={xScale}
+                    xValue={xValue}
+                    yValue={yValue}
+                    tooltipValue={tooltipValue}
+                    circleRadius={circleRadius}
+                    />
+                </g>
+                    MARKS FOR FILTERED DATA
+                    <Marks 
+                    data={filteredData} 
+                    yScale={yScale} 
+                    speciesScale={speciesScale}
+                    xScale={xScale}
+                    xValue={xValue}
+                    yValue={yValue}
+                    tooltipValue={tooltipValue}
+                    circleRadius={circleRadius}
+                    />
                 {/* X axis label  */}
                     <text 
                         className="axisLabel greyMe"
@@ -153,7 +174,8 @@ const IrisScatterplot = () => {
                             speciesScale={speciesScale}
                             spacing={20}
                             size={circleRadius}
-                            xOffset={20}/>
+                            xOffset={20}
+                            setHoveredSpecies={setHoveredSpecies}/>
                     </g>
                     
             </g>
